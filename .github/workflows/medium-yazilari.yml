@@ -1,0 +1,28 @@
+name: Medium Yazıları Güncelleme # İş akışının adı
+
+on:
+  schedule:
+    - cron: '0 * * * *' # İş akışının ne zaman çalıştırılacağı (her saat başı)
+
+jobs:
+  update-readme: # İş akışındaki işin adı
+    runs-on: ubuntu-latest # İşin hangi işletim sisteminde çalışacağı
+
+    steps: # İşin adımları
+      - name: Medium RSS Beslemesini Al # Adımın adı
+        uses: actions/checkout@v2 # Depoyu kontrol etme adımı
+      - name: Medium Yazılarını Ayrıştır # Adımın adı
+        run: | # Kabuk komutlarını çalıştırma adımı
+          curl -s "https://medium.com/feed/@kullanici_adiniz" | # Medium RSS beslemesini al
+          awk -F '<title>|</title>' '/<title>/{print $2}' | # Başlıkları ayıkla
+          sed '1d' | # İlk satırı (besleme başlığı) sil
+          head -n 5 > medium_yazilari.txt # İlk 5 yazının başlığını dosyaya yaz
+      - name: README Dosyasını Güncelle # Adımın adı
+        uses: mikeal/publish-to-github-pages@master # README dosyasını güncelleme adımı
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }} # GitHub API'sine erişim için token
+          branch: main # veya master # Deponun ana dalı
+          build_dir: . # İş akışının çalıştığı dizin
+          external_repository: mkmurathan/mkmurathan # Deponun adı
+          commit_message: "Medium yazıları güncellendi" # Commit mesajı
+          push_to_gh_pages: true # Değişiklikleri GitHub Pages'e gönder
