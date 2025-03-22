@@ -1,6 +1,7 @@
 name: Medium Yazıları Güncelleme # İş akışının adı
 
 on:
+  workflow_dispatch: # Manuel tetikleyiciyi ekle
   schedule:
     - cron: '0 * * * *' # İş akışının ne zaman çalıştırılacağı (her saat başı)
 
