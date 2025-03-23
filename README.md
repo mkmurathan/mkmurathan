@@ -3,18 +3,12 @@
 
 ### Blogs posts
 <!-- MEDIUM-ARTICLE-LIST:START -->
-<div style="border: 2px solid #ccc; border-radius: 10px; padding: 20px; width: 100%; background-color: #f9f9f9;">
-  <p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*uLcHQc2fKPetpDrQlR6L1Q.jpeg" alt="Feature Engineering for ML" style="max-width: 30%; height: 70px; object-fit: cover; border-radius: 5px;"></p>
-  <h3>[Feature Engineering for ML](https://medium.com/@murathankaragooz/feature-engineering-for-ml-87132bf566d0)</h3>
-  <p><strong>Description:</strong> Feature engineering is one of the most important stages of machine learning...</p>
-</div>
-
-<div style="border: 2px solid #ccc; border-radius: 10px; padding: 20px; width: 100%; background-color: #f9f9f9; margin-top: 20px;">
-   <p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*swx1cPx6ZgFcIs5C01PBnw.jpeg" alt="Do You Want to Be a Data Scientist?" style="max-width: 10%; height: 50px; object-fit: cover; border-radius: 5px;"></p>
-  <h3>[Do You Want to Be a Data Scientist? Then You Need to Know These](https://medium.com/@murathankaragooz/do-you-want-to-be-a-data-scientist-then-you-need-to-know-these-e93850999eca)</h3>
- 
-  <p><strong>Description:</strong> Here are some crucial things that every aspiring data scientist needs to learn...</p>
-</div>
+- [$TITLE1]($LINK1)
+  - **Açıklama**: $DESCRIPTION1
+  - ![$TITLE1]($IMAGE_URL1)
+- [$TITLE2]($LINK2)
+  - **Açıklama**: $DESCRIPTION2
+  - ![$TITLE2]($IMAGE_URL2)
 <!-- MEDIUM-ARTICLE-LIST:END -->
 
 <h3 align="left">Connect with me:</h3>
