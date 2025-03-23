@@ -1,30 +1,32 @@
-name: Medium Yazıları Güncelleme # İş akışının adı
+name: Medium Yazıları Güncelleme
 
 on:
-  workflow_dispatch: # Manuel tetikleyiciyi ekle
+  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *' # İş akışının ne zaman çalıştırılacağı (her saat başı)
+    - cron: '0 * * * *'
 
 jobs:
-  update-readme: # İş akışındaki işin adı
-    runs-on: ubuntu-latest # İşin hangi işletim sisteminde çalışacağı
+  update-readme:
+    runs-on: ubuntu-latest
 
-    steps: # İşin adımları
-      - name: Medium RSS Beslemesini Al # Adımın adı
-        uses: actions/checkout@v2 # Depoyu kontrol etme adımı
-      - name: Medium Yazılarını Ayrıştır # Adımın adı
-        run: | # Kabuk komutlarını çalıştırma adımı
-          curl -s "https://medium.com/feed/@murathankaragooz" | # Medium RSS beslemesini al
-          awk -F '<title>|</title>' '/<title>/{print $2}' | # Başlıkları ayıkla
-          sed '1d' | # İlk satırı (besleme başlığı) sil
-          head -n 5 > medium_yazilari.txt # İlk 5 yazının başlığını dosyaya yaz
-      - name: README Dosyasını Güncelle # Adımın adı
-        uses: mikeal/publish-to-github-pages@master # README dosyasını güncelleme adımı
+    steps:
+      - name: Medium RSS Beslemesini Al
+        uses: actions/checkout@v2
+      - name: Medium Yazılarını Ayrıştır
+        run: |
+          curl -s "https://medium.com/feed/@murathankaragooz" |
+          awk -F '<title>|</title>' '/<title>/{print $2}' |
+          sed '1d' |
+          head -n 5 > medium_yazilari.txt
+      - name: README Dosyasını Güncelle ve GitHub Pages'e Yayınla
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.GH_TOKEN }} # GitHub API'sine erişim için token (GH_TOKEN olarak güncellendi)
-          branch: main # veya master # Deponun ana dalı
-          build_dir: . # İş akışının çalıştığı dizin
-          external_repository: mkmurathan/mkmurathan # Deponun adı (mkmurathan/mkmurathan olarak güncellendi)
-          cname: mkmurathan.github.io # GitHub Pages için alan adı (isteğe bağlı)
-          commit_message: "Medium yazıları güncellendi" # Commit mesajı
-          push_to_gh_pages: true # Değişiklikleri GitHub Pages'e gönder
+          github_token: ${{ secrets.GH_TOKEN }}
+          publish_dir: ./ # İş akışının çalıştığı dizin
+          commit_message: "Medium yazıları güncellendi"
+          publish_branch: gh-pages # github pages yayınlanacağı branch
+      - name: readme dosyasını ana branch e geri yükle
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "readme güncellendi"
+          file_pattern: README.md
