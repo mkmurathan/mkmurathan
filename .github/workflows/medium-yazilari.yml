@@ -1,9 +1,9 @@
 name: Medium's Recent Articles
 
-on:
-  schedule:
+
+  
     
-  workflow_dispatch:  # Manuel tetikleme için
+  
 
 jobs:
   update-readme-with-medium-articles:
