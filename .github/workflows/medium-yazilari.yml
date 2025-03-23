@@ -2,7 +2,7 @@ name: Medium's Recent Articles
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # Her 30 dakikada bir çalışacak
+    
   workflow_dispatch:  # Manuel tetikleme için
 
 jobs:
