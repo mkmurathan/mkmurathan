@@ -5,13 +5,13 @@
 <!-- MEDIUM-ARTICLE-LIST:START -->
 <div style="border: 2px solid #ccc; border-radius: 10px; padding: 20px; width: 100%; background-color: #f9f9f9;">
   <h3>[Feature Engineering for ML](https://medium.com/@murathankaragooz/feature-engineering-for-ml-87132bf566d0)</h3>
-  <p><img src="https://miro.medium.com/max/800/1*cCXLh0r3tqH2Bsi1UgeNIA.png" alt="Feature Engineering for ML" style="max-width: 100%; height: auto; border-radius: 5px;"></p>
+  <p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*uLcHQc2fKPetpDrQlR6L1Q.jpeg" alt="Feature Engineering for ML" style="max-width: 100%; height: auto; border-radius: 5px;"></p>
   <p><strong>Description:</strong> Feature engineering is one of the most important stages of machine learning...</p>
 </div>
 
 <div style="border: 2px solid #ccc; border-radius: 10px; padding: 20px; width: 100%; background-color: #f9f9f9; margin-top: 20px;">
   <h3>[Do You Want to Be a Data Scientist? Then You Need to Know These](https://medium.com/@murathankaragooz/do-you-want-to-be-a-data-scientist-then-you-need-to-know-these-e93850999eca)</h3>
-  <p><img src="https://miro.medium.com/max/800/1*d-cuhPTo7U4m_fYvRHmHYg.png" alt="Do You Want to Be a Data Scientist?" style="max-width: 100%; height: auto; border-radius: 5px;"></p>
+  <p><img src="https://miro.medium.com/v2/resize:fit:720/format:webp/1*swx1cPx6ZgFcIs5C01PBnw.jpeg" alt="Do You Want to Be a Data Scientist?" style="max-width: 100%; height: auto; border-radius: 5px;"></p>
   <p><strong>Description:</strong> Here are some crucial things that every aspiring data scientist needs to learn...</p>
 </div>
 <!-- MEDIUM-ARTICLE-LIST:END -->
