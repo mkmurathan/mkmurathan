@@ -1,33 +1,52 @@
-name: Medium Yazıları Güncelleme
+name: Medium's Recent Articles
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '*/30 * * * *'  # Her 30 dakikada bir çalışacak
+  workflow_dispatch:  # Manuel tetikleme için
 
 jobs:
-  update-readme:
+  update-readme-with-medium-articles:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Depo Kontrol Et
-        uses: actions/checkout@v2 # Depo kontrol etme adımı
-      - name: Medium RSS Beslemesini Al
+      - uses: actions/checkout@v2  # Repo'yu çekiyoruz
+
+      - name: Install xmllint
         run: |
-          curl -s "https://medium.com/feed/@murathankaragooz" |
-          awk -F '<title>|</title>' '/<title>/{print $2}' |
-          sed '1d' |
-          head -n 5 > medium_yazilari.txt
-      - name: README Dosyasını Güncelle ve GitHub Pages'e Yayınla
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./
-          commit_message: "Medium yazıları güncellendi"
-          publish_branch: gh-pages
-      - name: README Dosyasını Ana Branch'e Geri Yükle
-        uses: stefanzweifel/git-auto-commit-action@v5
-        with:
-          commit_message: "readme güncellendi"
-          file_pattern: README.md
-          repository: . # Geçerli dizini belirt
+          sudo apt-get update
+          sudo apt-get install -y libxml2-utils  # xmllint'i yüklüyoruz
+
+      - name: Fetch recent Medium articles
+        run: |
+          # Medium RSS feed'den başlık, açıklama ve görsel URL'sini çekiyoruz
+          TITLE1=$(curl -s https://medium.com/feed/@murathankaragooz | xmllint --xpath "string(//item[1]/title)" -)
+          DESCRIPTION1=$(curl -s https://medium.com/feed/@murathankaragooz | xmllint --xpath "string(//item[1]/description)" -)
+          IMAGE_URL1=$(curl -s https://medium.com/feed/@murathankaragooz | xmllint --xpath "string(//item[1]/enclosure/@url)" -)
+          LINK1=$(curl -s https://medium.com/feed/@murathankaragooz | xmllint --xpath "string(//item[1]/link)" -)
+          
+          TITLE2=$(curl -s https://medium.com/feed/@murathankaragooz | xmllint --xpath "string(//item[2]/title)" -)
+          DESCRIPTION2=$(curl -s https://medium.com/feed/@murathankaragooz | xmllint --xpath "string(//item[2]/description)" -)
+          IMAGE_URL2=$(curl -s https://medium.com/feed/@murathankaragooz | xmllint --xpath "string(//item[2]/enclosure/@url)" -)
+          LINK2=$(curl -s https://medium.com/feed/@murathankaragooz | xmllint --xpath "string(//item[2]/link)" -)
+          
+          # Çekilen bilgileri konsola yazdırıyoruz (test amaçlı)
+          echo "Title 1: $TITLE1"
+          echo "Description 1: $DESCRIPTION1"
+          echo "Link 1: $LINK1"
+          echo "Image URL 1: $IMAGE_URL1"
+
+          echo "Title 2: $TITLE2"
+          echo "Description 2: $DESCRIPTION2"
+          echo "Link 2: $LINK2"
+          echo "Image URL 2: $IMAGE_URL2"
+          
+          # README.md dosyasındaki özel tag'i buluyoruz ve yazıyı ekliyoruz
+          sed -i '/<!-- MEDIUM-ARTICLE-LIST:START -->/,/<!-- MEDIUM-ARTICLE-LIST:END -->/c\<!-- MEDIUM-ARTICLE-LIST:START -->\n- [$TITLE1]($LINK1)\n  - **Açıklama**: $DESCRIPTION1\n  - ![$TITLE1]($IMAGE_URL1)\n- [$TITLE2]($LINK2)\n  - **Açıklama**: $DESCRIPTION2\n  - ![$TITLE2]($IMAGE_URL2)\n<!-- MEDIUM-ARTICLE-LIST:END -->' README.md
+
+      - name: Commit changes to README
+        run: |
+          git config --global user.email "murathankaragooz@hotmail.com"  # Git user ayarları
+          git config --global user.name "Murathan Karagöz"  # Git user ayarları
+          git add README.md  # README.md dosyasını ekliyoruz
+          git commit -m "Update README with latest Medium articles"  # Commit mesajı
+          git push  # Değişiklikleri uzak depoya itiyoruz
