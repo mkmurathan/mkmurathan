@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Depo Kontrol Et
+        uses: actions/checkout@v2 # Depo kontrol etme adımı
       - name: Medium RSS Beslemesini Al
-        uses: actions/checkout@v2
-      - name: Medium Yazılarını Ayrıştır
         run: |
           curl -s "https://medium.com/feed/@murathankaragooz" |
           awk -F '<title>|</title>' '/<title>/{print $2}' |
@@ -22,11 +22,12 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GH_TOKEN }}
-          publish_dir: ./ # İş akışının çalıştığı dizin
+          publish_dir: ./
           commit_message: "Medium yazıları güncellendi"
-          publish_branch: gh-pages # github pages yayınlanacağı branch
-      - name: readme dosyasını ana branch e geri yükle
+          publish_branch: gh-pages
+      - name: README Dosyasını Ana Branch'e Geri Yükle
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "readme güncellendi"
           file_pattern: README.md
+          repository: . # Geçerli dizini belirt
