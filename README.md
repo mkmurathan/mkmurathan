@@ -1,9 +1,9 @@
 ### Latest Medium Articles
 <!-- MEDIUM-ARTICLE-LIST:START -->
-- [Başlık 1](Link1)
-  - **Açıklama**: Açıklama 1
-  - ![Başlık 1](Resim URL1)
-- [Başlık 2](Link2)
-  - **Açıklama**: Açıklama 2
-  - ![Başlık 2](Resim URL2)
+- [$TITLE1]($LINK1)
+  - **Açıklama**: $DESCRIPTION1
+  - ![$TITLE1]($IMAGE_URL1)
+- [$TITLE2]($LINK2)
+  - **Açıklama**: $DESCRIPTION2
+  - ![$TITLE2]($IMAGE_URL2)
 <!-- MEDIUM-ARTICLE-LIST:END -->
